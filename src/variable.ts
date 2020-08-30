@@ -1,4 +1,9 @@
-export const FONT     = "36px monospace"
-export const INTERVAL = 33
-export const HEIGHT   = 300;  //仮装画面サイズ 高さ
-export const WIDTH    = 320;  //仮装画面サイズ 横幅
+export const FONT         = "36px monospace"
+export const INTERVAL     = 33
+export const HEIGHT       = 300;  //仮装画面サイズ 高さ
+export const WIDTH        = 320;  //仮装画面サイズ 横幅
+export const TILECOLUMN   = 11;  //読み込む画像のサイズ横７マス
+export const TILEROW      = 4;  //読み込む画像のサイズ縦７マス
+export const TILESIZE     = 16;
+export const MAP_HEIGHT   = 96;  //マップの高さ
+export const MAP_WIDTH    = 32;  //マップの幅

@@ -1,5 +1,6 @@
-import { FONT, INTERVAL, WIDTH, HEIGHT } from './variable';
-import image              from '../image/map.png';
+import { FONT, INTERVAL, WIDTH, HEIGHT, TILECOLUMN, TILEROW, TILESIZE, MAP_WIDTH} from './variable';
+import { virtualScreenMap } from './map';
+import image                from '../image/map.png';
 
 /**
  * @param count         カウント
@@ -22,9 +23,19 @@ function drawMainScreen() {
    */
   const context2d = virtualScreen.getContext('2d')
 
+  /**
+   * x座標とy座標をfor文で回し、作成したマップを仮装画面情に描画していく
+   * 計算としては、各座標をタイルサイズ分敷き詰めて作成したマップ配列を
+   * drawTile関数でループ処理する
+   */
   for(let y = 0; y < 32; y ++){
     for(let x = 0; x < 64; x ++){
-      context2d!.drawImage(mapImg, x * 176, y * 64)
+      drawTile(
+        context2d!,
+        x * TILESIZE,
+        y * TILESIZE,
+        virtualScreenMap[ y * MAP_WIDTH + x]
+      )
     }
   }
   /**
@@ -32,6 +43,20 @@ function drawMainScreen() {
    */
   context2d!.font = FONT
   context2d!.fillText("Hello World" + count, count / 10, 64)
+}
+
+/**
+ * 画像をタイルサイズに分けて表示
+ *
+ */
+function drawTile(context2d: CanvasRenderingContext2D, x: number, y: number, index: number) {
+  context2d!.drawImage(
+    mapImg,
+    (index % TILECOLUMN) * TILESIZE,
+    Math.floor(index / TILECOLUMN) * TILESIZE,
+    TILESIZE, TILESIZE, x, y,
+    TILESIZE, TILESIZE
+  )
 }
 
 function drawPaintImage() {
