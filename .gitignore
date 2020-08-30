@@ -3,3 +3,6 @@
 /package-lock.json
 /tsconfig.json
 /webpack.config.js
+.DS_Store
+yarn.lock
+image/
