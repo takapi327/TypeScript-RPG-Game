@@ -9,6 +9,8 @@ import image              from '../image/map.png';
 let count:         number = 0
 let mapImg:        CanvasImageSource;
 let virtualScreen: HTMLCanvasElement;
+let canvasWidth:   number;
+let canvasHeight:  number;
 
 /**
  * 仮装画面で描画コンテキストを取得し、仮装画面上に画像を表示させる。
@@ -44,7 +46,11 @@ function drawPaintImage() {
    * 仮装画面をmainキャンバスに転送
    *
    */
-  context2d!.drawImage(virtualScreen, 0, 0, virtualScreen.width, virtualScreen.height, 0, 0, canvas.width, canvas.height)
+  context2d!.drawImage(
+    virtualScreen,
+    0, 0, virtualScreen.width, virtualScreen.height, // 仮装画面
+    0, 0, canvasWidth, canvasHeight                  // 実画面
+  )
 
 }
 
@@ -55,6 +61,22 @@ function canvasSize() {
   const canvas    = <HTMLCanvasElement>document.getElementById('main')
   canvas.width    = window.innerWidth
   canvas.height   = window.innerHeight
+
+  /**
+   * ドットのアスペクト比を維持したまま、最大サイズを計算
+   *
+   */
+  canvasWidth  = canvas.width
+  canvasHeight = canvas.height
+
+  /**
+   * 画像サイズを縦長と横長の場合で処理分けをする
+   */
+  if(canvasWidth / WIDTH < canvasHeight / HEIGHT){
+    canvasHeight = canvasWidth * HEIGHT / WIDTH
+  } else {
+    canvasWidth = canvasHeight * WIDTH / HEIGHT
+  }
 }
 
 /**
